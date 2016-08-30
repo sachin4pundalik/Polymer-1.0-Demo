@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../my-contact-listing/my-contact-listing.html">
+
+<dom-module id="contact-list">
+    <style>
+        ul {
+            list-style: none;
+        } 
+        
+        li + li {
+            border-top: solid 1px #666;
+        }
+    </style>
+    
+    <template>
+        <ul>
+            <template is="dom-repeat" items="{{contacts}}">
+                <li>
+                    <contact-listing
+                         img="{{item.img}}"
+                         name="{{item.name}}"
+                         email="{{item.email}}">
+                    </contact-listing>
+                </li>
+            </template>
+        </ul>
+    </template>
+    <script>
+        Polymer({
+            is: "contact-list",
+            properties: {
+                contacts: {                
+                    type: Array,
+                    value: function(){
+                        return [
+                            {
+                                name: "Sachin",
+                                email: "sachin@capgemini.com",
+                                img: "https://randomuser.me/api/portraits/thumb/men/10.jpg"
+
+                            },
+                            {
+                                name: "Mark",
+                                email: "mark@capgemini.com",
+                                img: "https://randomuser.me/api/portraits/thumb/men/30.jpg"
+                            },
+                            {
+                                name: "Robson",
+                                email: "robson@capgemini.com",
+                                img: "https://randomuser.me/api/portraits/thumb/men/20.jpg"
+                            }
+                        ]
+
+                    }
+                }
+            }       
+        });
+    </script>
+</dom-module>

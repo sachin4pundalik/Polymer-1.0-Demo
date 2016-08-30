@@ -1,0 +1,46 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../my-editable-lable.html/editable-lable.html">
+
+<dom-module id="contact-listing">
+    <style>
+        listing-wrapper {
+            display: flex;
+            padding: 20px;
+        }
+        
+        listing-wrapper img {
+            border-radius: 50%;
+            margin-right: 40px;
+        }        
+        
+        h3 {
+            margin: 0 40px 0 0;            
+        }
+        
+        listing-wrapper span {
+            line-height: 80px;
+        }
+    
+    </style>
+
+    <template>
+        <div class="listing-wrapper">
+            <img src="{{img}}">
+            <h3>{{name}}</h3>
+            <span><editable-lable inputvalue="{{email}}"></editable-lable></span>            
+        </div>    
+    </template>
+    
+    <script>
+        Polymer({
+            is: "contact-listing",
+            properties: {
+                img: String,
+                name: String,
+                email: String
+            }
+        });
+    </script>
+</dom-module>

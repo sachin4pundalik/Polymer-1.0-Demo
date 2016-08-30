@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="github-issues">
+<template>
+    <style>
+       
+    </style>
+    <iron-ajax
+        auto
+        url="{{defaultUrl}}"
+        handel-as="json"
+        last-response="{{response}}">
+    </iron-ajax> 
+    <div>
+        <paper-input value={{defaultUrl}} label="Enter Git url to fetch list of issues:"></paper-input>
+        <ul>
+            <template is="dom-repeat" items="{{response}}">
+               <div>
+                 <a href="{{item.html_url}}">{{item.title}}</a>
+               </div>
+            </template>
+        </ul>
+    </div>    
+</template>
+<script>
+    Polymer({
+        is: "github-issues",
+        properties: {
+            defaultUrl: {
+                type: String,
+                value: "https://api.github.com/repos/spring-projects/spring-boot/issues"
+            }
+        }
+    })
+</script>    
+</dom-module>

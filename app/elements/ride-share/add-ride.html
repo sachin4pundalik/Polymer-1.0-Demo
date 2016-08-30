@@ -1,0 +1,77 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-date-picker/paper-date-picker.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-input-date-picker/paper-input-date-picker.html">
+
+<link rel="import" href="../../bower_components/firebase-element/firebase.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase-collection.html">
+
+
+<link rel="import" href="../location-input/location-input.html">
+
+
+<dom-module id="add-ride">
+    <style>
+        paper-button.indigo {
+            background-color: var(--paper-indigo-500);
+            color: white;
+            --paper-button-raised-keyboard-focus: {
+              background-color: var(--paper-pink-a200) !important;
+              color: white !important;
+            };
+        }
+    </style>
+    <template>        
+        <location-input input-label="From" input-value="{{departure}}"></location-input>  
+        <location-input input-label="To" input-value="{{arrival}}"></location-input>
+        <paper-input-date-picker value="{{date}}"></paper-input-date-picker> 
+        <paper-button raised class="custom indigo" on-tap="addRide">Add Ride</paper-button>        
+    </template>
+
+    <script>
+        Polymer({
+            is: "add-ride",
+            properties: {
+                departure: String,
+                arrival: String,
+                date: Date,
+                dateString: String,
+                firebaseRef: Object
+                
+            },
+            
+            ready: function(){               
+                var ref = new Firebase("https://travel-app-e5b23.firebaseio.com/rides");
+                this.firebaseRef = ref;
+                var currentElement = this;
+                ref.on('value', function(snapshot) {                    
+                    currentElement.updateData(snapshot);
+                });                
+            },
+            
+            addRide: function(){               
+                this.dateString = this.formatDate(this.date);
+                var newRide = 
+                    {
+                        "departure": this.departure, 
+                        "arrival": this.arrival, 
+                        "date": this.dateString
+                    }; 
+                this.firebaseRef.push(newRide);
+            },
+            
+            updateData: function(snapshot){
+                console.log('In Add Ride Call Back');
+                console.log(snapshot.val());
+            },
+             
+            formatDate: function(date){
+                var newDate=date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate();
+                return newDate;                
+            }         
+            
+        });    
+    </script>
+
+</dom-module>

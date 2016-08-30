@@ -1,0 +1,33 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="input-header">
+<template>
+    <paper-toolbar>
+        <paper-icon-button icon="mail"></paper-icon-button>
+        <div>{{label}}</div>
+        <paper-menu-button>
+            <paper-icon-button icon="more-vert"></paper-icon-button>
+            <paper-input lable="Thread Name:" value="{{label}}"></paper-input>            
+        </paper-menu-button>    
+    </paper-toolbar>  
+</template>
+    
+<script>
+    Polymer({
+        is: 'input-header',
+        properties: {
+            label: {
+                type: String,
+                value: "Default Value"
+            }
+        }
+    });
+    
+</script>    
+</dom-module>

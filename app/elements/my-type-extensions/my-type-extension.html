@@ -1,0 +1,42 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+ 
+<dom-module id="hello-type-ext-element">
+    <style>
+        input {
+            border: 5px solid white; 
+            -webkit-box-shadow: 
+              inset 0 0 8px  rgba(0,0,0,0.1),
+                    0 0 16px rgba(0,0,0,0.1); 
+            -moz-box-shadow: 
+              inset 0 0 8px  rgba(0,0,0,0.1),
+                    0 0 16px rgba(0,0,0,0.1); 
+            box-shadow: 
+              inset 0 0 8px  rgba(0,0,0,0.1),
+                    0 0 16px rgba(0,0,0,0.1); 
+            padding: 15px;
+            background: rgba(255,255,255,0.5);
+            margin: 0 0 10px 0;
+        }
+    
+    </style> 
+    <template>
+        <input type="text" value="{{message}}" size="50">
+    </template>
+
+    <script>
+          HTMLImports.whenReady(function(){
+             HelloElement = Polymer.Class({
+               is: "hello-type-ext-element",
+               properties: {     
+                     message: {
+                         type: String,
+                         value: 'This is default text.'
+                     }            
+               }                    
+             });
+             document.registerElement("hello-type-ext-element", HelloElement);               
+          })
+    </script>
+    
+</dom-module>    

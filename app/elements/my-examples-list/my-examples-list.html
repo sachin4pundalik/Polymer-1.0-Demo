@@ -1,0 +1,144 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../my-hello-world/hello-element.html">
+<link rel="import" href="../hello-world-class-constructor/hello-world-constructor.html">
+<link rel="import" href="../my-type-extensions/my-type-extension.html">
+<link rel="import" href="../my-element-callbacks/my-element-callbacks.html"> 
+<link rel="import" href="../my-onewaybinding/my-onewaybinding.html"> 
+<link rel="import" href="../my-twowaybinding/my-twowaybinding.html">
+<link rel="import" href="../my-contact-list/my-contact-list.html">
+<link rel="import" href="../my-chat-app/my-input-header/input-header.html">
+<link rel="import" href="../my-github-issues/github-issues.html">
+<link rel="import" href="../my-travel-app/my-travel-app.html">
+<!-- <link rel="import" href="../places-autocomplete/location-input.html"> -->
+<link rel="import" href="../ride-share/ride-share-view.html">
+
+
+<dom-module id="my-examples-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      span {
+        @apply(--paper-font-body1);
+      }
+    </style>
+    <ul>      
+    <h1>Below is the list of examples</h1>    
+    <template is="dom-repeat" items="{{exampleItems}}">
+      <li><a on-tap="handleTap">{{item}}</a></li>           
+    </template>
+      
+    <div id="examplePanel">
+      <h2>This is example for {{exampleName}}</h2>
+      <span id="exampleContentSpan" class="exampleContentSpan"></span>    
+    </div>
+      
+    </ul>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+        
+      Polymer({
+        is: 'my-examples-list',
+
+        properties: {
+          items: {
+            type: Array,
+            notify: true
+          },
+          exampleName: {
+            type: String,
+            value: 'Default Name'     
+          }
+        },
+
+        ready: function() {
+          this.exampleItems = [
+            'Simple Hello Element',
+            'Hello Element With Constructor',
+            'Type Extensions',
+            'Element Callbacks',
+            'One-way Databinding',
+            'Two-way Databinding',
+            'Custom Contact List',
+            'Custom Input Header',
+            'Git Hub Issues List With iron-ajax',
+            'Travel App',
+            'Ride Share'  
+          ];   
+        },
+          
+        handleTap: function(e,detail) {             
+          var itemName =  e.target.textContent;
+          this.exampleName = itemName; 
+          var exampleContentSpan = document.getElementById('exampleContentSpan');
+          if(itemName == 'Simple Hello Element'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              exampleContentSpan.appendChild(document.createElement('hello-element'));
+          }else if(itemName == 'Hello Element With Constructor'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              exampleContentSpan.appendChild(document.createElement('helloworld-constructor'));
+          }else if(itemName == 'Type Extensions'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }              
+              exampleContentSpan.appendChild(document.createElement('hello-type-ext-element'));
+              //exampleContentSpan.appendChild('<hello-type-ext-element></hello-type-ext-element>');
+          }else if(itemName == 'Element Callbacks'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              exampleContentSpan.appendChild(document.createElement('hello-callback-element'));              
+          }else if(itemName == 'One-way Databinding'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              exampleContentSpan.appendChild(document.createElement('one-way-binding'));              
+          }else if(itemName == 'Two-way Databinding'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              exampleContentSpan.appendChild(document.createElement('two-way-binding'));              
+          }else if(itemName == 'Custom Contact List'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              exampleContentSpan.appendChild(document.createElement('contact-list'));              
+          }else if(itemName == 'Custom Input Header'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              exampleContentSpan.appendChild(document.createElement('input-header')); 
+          }else if(itemName == 'Git Hub Issues List With iron-ajax'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              var gitIssuesElement = document.createElement('github-issues');
+              gitIssuesElement.setAttribute("defaultUrl","https://api.github.com/repos/spring-projects/spring-boot/issues");
+              exampleContentSpan.appendChild(gitIssuesElement); 
+          }else if(itemName == 'Travel App'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              exampleContentSpan.appendChild(document.createElement('travel-app')); 
+          }else if(itemName == 'Ride Share'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              }
+              exampleContentSpan.appendChild(document.createElement('ride-share-view')); 
+          }
+        }  
+      });      
+    })();
+  </script>
+</dom-module>

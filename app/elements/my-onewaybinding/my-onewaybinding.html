@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+   
+    <dom-module id="one-way-binding">
+      <template>
+         <paper-input value="[[message]]"></paper-input>
+         Element property 'message' value is: [[message]]</br> 
+      </template>
+    </dom-module>
+    
+    <script>
+      HTMLImports.whenReady(function(){
+       Polymer({
+         is: "one-way-binding",
+         properties: {     
+             message: {
+                 type: String,
+                 value: 'One-way Binding Example',
+                 reflectToAttribute: true
+             }            
+         }
+       }) 
+      })
+    </script>

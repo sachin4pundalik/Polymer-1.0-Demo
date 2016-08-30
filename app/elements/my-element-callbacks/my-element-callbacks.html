@@ -1,0 +1,39 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+   
+    
+    <script>
+      HTMLImports.whenReady(function(){
+         HelloElement = Polymer.Class({
+           is: "hello-callback-element",
+           created: function(){
+             this.textContent = "Hello There. This is example of Element Lifecycle callbacks";
+             console.log("Creates: the element has been created");
+           },
+           
+           ready: function(){
+           console.log("Ready: Property value set and local DOM is initialized");
+           this.message = "Hello2"
+           },
+           
+           attached: function(){
+             console.log("Attached: The element is attached to the document");
+           },
+           
+           detached: function(){
+             console.log("Detached: The element has been detached");
+           },
+           
+           factoryImpl: function(){
+             console.log("factory Impl: Invoked only when creating an event using the constructor");
+           },
+           attributeChanged: function(attrname, oldVal, newVal){
+             console.log("AttributeChanged: Attribute:" + attrname + " oldval:" + oldVal + " newVal" + newVal);
+           }
+         });         
+         document.registerElement("hello-callback-element", HelloElement);         
+         var e1 = new HelloElement();
+         document.querySelector("body").appendChild(e1);         
+      })
+      
+    </script>

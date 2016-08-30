@@ -1,0 +1,93 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+
+
+<link rel="import" href="../../bower_components/firebase-element/firebase.html">
+<link rel="import" href="../../bower_components/firebase-element/firebase-collection.html">
+
+<dom-module id="travel-app">
+    <template>
+        <div>
+           <paper-dropdown-menu label="Countries" on-iron-select="selectedCountry">    
+              <paper-listbox class="dropdown-content">
+                <template is="dom-repeat" items="{{countryList}}">
+                    <!-- <paper-item value="{{item.__firebaseKey__}}">{{item.name}}</paper-item> -->
+                    <paper-item id="{{item.code}}">{{item.name}}</paper-item>
+                </template>
+              </paper-listbox>
+            </paper-dropdown-menu>         
+        </div>
+        
+        
+        <div>
+           <paper-dropdown-menu label="States">    
+              <paper-listbox class="dropdown-content">
+                <template is="dom-repeat" items="{{stateList}}">
+                    <paper-item>{{item.name}}</paper-item>
+                </template>
+              </paper-listbox>
+            </paper-dropdown-menu>            
+        </div>
+        
+    </template> 
+
+    <script>
+        Polymer({
+            is: "travel-app",
+            properties: {                 
+                firebaseSettings: {
+                    type: Object,
+                    value: function(){
+                        return  {
+                                    firebaseURL: "https://travel-app-e5b23.firebaseio.com",
+                                    firebaseProvider: "anonymous"                                
+                                }
+                               
+                    }
+                },
+                countryList: {
+                    type: Array,
+                    value: function(){return []},
+                    notify: true
+                },
+                stateList:{
+                    notify: true
+                }
+            },
+            
+            ready: function(){               
+                var ref = new Firebase("https://travel-app-e5b23.firebaseio.com");
+                var currentElement = this;
+                ref.on('value', function(snapshot) {                    
+                    currentElement.updateData(snapshot);
+                });
+            },
+            
+            selectedCountry: function(e, item){                
+                var selectedItem = e.target.selectedItem;
+                if (selectedItem) {
+                   console.log(selectedItem.id);
+                   for(var i=0;i< this.countryList.length; i++){
+                       var obj = this.countryList[i];
+                       if(selectedItem.id == obj.code){
+                          this.stateList = obj.states;
+                           break;
+                       }
+                   }
+                }
+            },
+            
+            updateData: function(snapShot){
+                this.countryList = snapShot.val().countries;
+                console.log(this.countryList); 
+            }
+            
+        })
+    </script>
+
+</dom-module>

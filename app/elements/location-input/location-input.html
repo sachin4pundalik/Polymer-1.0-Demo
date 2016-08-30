@@ -1,0 +1,56 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../bower_components/google-apis/google-maps-api.html">
+
+<dom-module id="location-input">
+  <style>
+    
+  </style>
+  <template>   
+        <google-maps-api id="maps" libraries="places" api-key="AIzaSyCP2cfnvGBJLHlYDsn9MNHjnNZTzCggOow" on-api-load="on_api_load"></google-maps-api>
+        <label>{{inputLabel}}: </label><input id="input" class="input" type="text" value="{{inputValue}}"/>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'location-input',
+    properties: {
+      inputLabel: {
+          type: String,
+          value:"Default"
+      },
+        
+      inputValue: {
+        type: String,
+        notify: true,
+        reflectToAttribute: true
+      },
+        
+      placeOptions: {
+        type: Object,
+        value: function () { return {}; }
+      },
+        
+      place: {
+        type: Object,
+        value: function () { return {}; },
+        notify: true
+      }
+    },
+      
+    on_api_load: function () {
+      this.autocomplete = new google.maps.places.Autocomplete(this.$.input, this.placeOptions);
+      google.maps.event.addListener(this.autocomplete, 'place_changed', this.on_change_place.bind(this));
+    },
+      
+    on_change_place: function () {
+      this.place = this.autocomplete.getPlace();
+      if (!this.place.address_components) {
+        return;
+      }
+      this.inputValue = this.place.formatted_address;     
+    }
+      
+  });
+</script>

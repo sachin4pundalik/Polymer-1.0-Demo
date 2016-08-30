@@ -1,0 +1,65 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+
+<dom-module id="editable-lable">
+<style>
+    .labelStyle {
+      background:rgba(0,0,0,0);
+      border:none;
+      font-style: italic;
+      font-family: sans-serif;
+      color: lightblue;
+      font-size: 20px;    
+            
+    }
+    
+</style>
+<template>
+    <div>
+        <span on-mouseover="showEditIcon">
+            <input id="editableInput" type="text" size="30" value="{{inputvalue}}" class="labelStyle" disabled on-tap="editInput">           
+        </span>
+        <span id="iconSpan">
+            <paper-button raised on-tap="saveEditedInput"><iron-icon icon="save" id="saveIcon"></iron-icon></paper-button>                        
+        </span>        
+    </div>    
+</template> 
+<script>
+    Polymer({
+        
+        is: "editable-lable",
+        properties: {     
+             inputvalue: {
+                 type: String,
+                 value: ''
+             }            
+        },
+        ready: function(){
+            this.$.iconSpan.style.display="none";          
+        },
+        editInput: function(){
+            this.$.editableInput.disabled=false;
+            this.$.editableInput.style.borderWidth="1px";
+            this.$.editableInput.style.borderStyle="inset";   
+            this.$.iconSpan.style.display="inline";
+            this.$.editableInput.style.cursor="default";
+        },
+        saveEditedInput: function(){
+            this.$.editableInput.disabled=true;
+            this.$.editableInput.style.background="rgba(0,0,0,0)";
+            this.$.editableInput.style.border="none";
+            this.$.iconSpan.style.display="none";
+            this.$.editableInput.style.color="red";
+            
+        },
+        showEditIcon: function(e,detail){            
+            //this.$.editableInput.style.cursor="url(../../images/icons/save.png),auto"; 
+            this.$.editableInput.style.cursor="pointer";
+        }
+    });
+</script>
+</dom-module>

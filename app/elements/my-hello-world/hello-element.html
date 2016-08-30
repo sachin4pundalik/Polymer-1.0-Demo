@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<dom-module id="hello-element">
+    <style>
+        h1 {
+            color: blue;
+            border: 2px;                
+        }
+    </style>
+    
+    <template>
+        <h1>Hello There. This is simple element</h1>
+    </template>
+    
+    
+</dom-module>
+<script>
+      HTMLImports.whenReady(function(){
+      Polymer({
+         is: "hello-element",
+         created: function(){ 
+           console.log('Code for hello-element.html executed');
+         }      
+       }) 
+    })  
+</script>
+
