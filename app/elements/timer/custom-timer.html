@@ -1,0 +1,104 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="custom-timer">
+    <template>
+        <style>
+           div {
+                border:1px #666666 solid;
+                width:190px;
+                height:50px;
+                line-height:50px;
+                font-size:36px;
+                font-family:"Courier New", Courier, monospace;
+                text-align:center;
+                margin:5px;
+            }
+            
+            paper-button.indigo {
+                background-color: var(--paper-indigo-500);
+                color: white;
+                --paper-button-raised-keyboard-focus: {
+                  background-color: var(--paper-pink-a200) !important;
+                  color: white !important;
+                };
+            }
+        </style>        
+        <div>
+            <span class="hour">{{hours}}</span>:<span class="minute">{{minutes}}</span>:<span class="second">{{seconds}}</span>
+        </div>
+        <paper-button raised class="custom indigo" on-tap="startTimer">Start</paper-button>
+        <paper-button raised class="custom indigo" on-tap="stopTimer">Stop</paper-button>   
+    </template>
+    
+    <script>
+       Polymer({
+            is: "custom-timer",
+            properties: {
+                targetTime: Number,
+                currentTimerTime: Number,
+                hours: String,
+                minutes: String,
+                seconds: String,
+                timerStatus: {
+                    type: String,
+                    value: "0"
+                },
+                timer: Object
+                
+            },
+           
+            ready: function(){
+                this.hours="00";
+                this.minutes="00";
+                this.seconds="00";
+            },
+            
+            startTimer: function(){ 
+               var interval = 1000; // Intervel is 1 second   
+               var time = this.targetTime;   
+               var curElement = this; 
+               if(this.timerStatus == 0){
+                    this.timerStatus = 1;
+                    this.timer = setInterval(function(){
+                       if(time){
+                          time--;  
+                          curElement.currentTimerTime = time;      
+                          curElement.generateTime(time);
+                          if(typeof(callback) === 'function') callback(time);
+                       }
+                    }, interval);
+                }                
+            },
+            
+            stopTimer: function(){
+                 console.log('STOP TIMER CALLED');
+                 console.log(status);
+                 if(this.timerStatus == 1){ 
+                    this.timerStatus = 0;
+                    clearInterval(this.timer);
+                    this.targetTime = this.currentTimerTime;                     
+                 }
+            },
+           
+            generateTime: function(time){
+                console.log(time);
+                var second = time % 60;
+                var minute = Math.floor(time / 60) % 60;
+                var hour = Math.floor(time / 3600) % 60;
+
+                second = (second < 10) ? '0'+second : second;
+                minute = (minute < 10) ? '0'+minute : minute;
+                hour = (hour < 10) ? '0'+hour : hour;
+                
+                this.hours = hour;
+                this.minutes = minute;
+                this.seconds = second;
+            }            
+        });  
+    
+    </script>
+
+</dom-module>

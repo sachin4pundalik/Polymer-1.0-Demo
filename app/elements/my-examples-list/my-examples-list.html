@@ -13,6 +13,7 @@
 <link rel="import" href="../my-travel-app/my-travel-app.html">
 <!-- <link rel="import" href="../places-autocomplete/location-input.html"> -->
 <link rel="import" href="../ride-share/ride-share-view.html">
+<link rel="import" href="../timer/custom-timer.html">
 
 
 <dom-module id="my-examples-list">
@@ -56,7 +57,7 @@
             type: String,
             value: 'Default Name'     
           }
-        },
+        },  
 
         ready: function() {
           this.exampleItems = [
@@ -70,7 +71,8 @@
             'Custom Input Header',
             'Git Hub Issues List With iron-ajax',
             //'Travel App',
-            'Ride Share'  
+            'Ride Share',
+            'Custom Timer'  
           ];   
         },
           
@@ -136,6 +138,13 @@
                     exampleContentSpan.removeChild(exampleContentSpan.firstChild);
               }
               exampleContentSpan.appendChild(document.createElement('ride-share-view')); 
+          }else if(itemName == 'Custom Timer'){
+              while (exampleContentSpan.hasChildNodes()) {   
+                    exampleContentSpan.removeChild(exampleContentSpan.firstChild);
+              } 
+              var timer = document.createElement('custom-timer');    
+              timer.setAttribute('target-time', 3600);
+              exampleContentSpan.appendChild(timer); 
           }
         }  
       });      
