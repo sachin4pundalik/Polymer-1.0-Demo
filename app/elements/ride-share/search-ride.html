@@ -74,9 +74,7 @@
                 var tempArray = [];
                 snapshot.forEach(function(childSnapshot) {
                   var key = childSnapshot.key();
-                  var childData = childSnapshot.val();
-                  console.log(key);    
-                  console.log(childData);
+                  var childData = childSnapshot.val();                 
                   tempArray.push(childData);
                 });
                 this.ridesList = tempArray;                
