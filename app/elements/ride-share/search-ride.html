@@ -38,7 +38,10 @@
             properties: {
                 departure: String,
                 arrival: String,
-                date: Date,
+                date: {
+                    type: Date,
+                    value: function(){return new Date()}
+                },
                 dateString: String,
                 firebaseRef: Object,
                 ridesList: Object,
