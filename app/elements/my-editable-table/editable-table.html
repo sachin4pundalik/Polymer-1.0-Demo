@@ -47,7 +47,9 @@
         } 
          
      </style>
-     <div id="tableDiv"></content></div>      
+     <div id="tableDiv">        
+     
+     </div>      
  </template> 
     
  <Script>
@@ -116,9 +118,11 @@
                 var delButton = document.createElement('paper-button');
                 delButton.textContent="Delete";
                 var rowId = 'row'+i;
-                delButton.setAttribute('id','row'+i);
+                delButton.setAttribute('id',rowId);
                 delButton.setAttribute('class','custom indigo style-scope editable-table'); 
-                         
+                 
+                delButton.addEventListener('tap',this.deleteRow);                 
+                                                        
                 tabCell.innerHTML = '';
                 tabCell.appendChild(delButton);                                
                 tabCell.setAttribute('class','table td style-scope editable-table');
@@ -129,13 +133,11 @@
              var divContainer = this.$.tableDiv;
              divContainer.innerHTML = "";
              divContainer.appendChild(table); 
-             console.log(this.$.rowId);
+             
          },
          
-         deleteRow: function(){
-            console.log('Delete Button Pressed ');
-            console.log(e);
-            console.log(selectedElement);
+         deleteRow: function(e){ 
+            
          }        
      });    
  </Script>
