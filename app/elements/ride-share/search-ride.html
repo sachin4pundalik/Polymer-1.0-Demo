@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/paper-date-picker/paper-date-picker.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
 <link rel="import" href="../../bower_components/paper-input-date-picker/paper-input-date-picker.html">
 
 <link rel="import" href="../../bower_components/firebase-element/firebase.html">
@@ -22,11 +23,29 @@
               color: white !important;
             };
         }
+        
+        paper-slider.hour {    
+          --paper-slider-knob-color: var(--paper-red-500);
+          --paper-slider-active-color: var(--paper-red-500);
+        }
+        
+        paper-slider.minute {
+            --paper-slider-knob-color: var(--paper-green-500);
+            --paper-slider-active-color: var(--paper-green-500);
+        }
     </style>
-    <template>        
+    <template>
         <location-input input-label="From" input-value="{{departure}}"></location-input>  
         <location-input input-label="To" input-value="{{arrival}}"></location-input>
-        <paper-input-date-picker value="{{date}}"></paper-input-date-picker> 
+        </br></br>
+        <b>Journy Date:</b> <paper-input-date-picker value="{{date}}"></paper-input-date-picker> 
+        <!-- Use Polymer Sliders for time -->
+        </br></br>
+        <div>Hour</div>
+        <paper-slider class="hour" value="{{hour}}" max="24" editable></paper-slider>
+        <div>Minute</div>
+        <paper-slider class="minute" value="{{minute}}" max="60" editable></paper-slider>
+        
         <paper-button raised class="custom indigo" on-tap="searchRide">Search Ride</paper-button>
         </br></br></br>
         <editable-table data="{{searchResults}}"></editable-table>
@@ -41,6 +60,14 @@
                 date: {
                     type: Date,
                     value: function(){return new Date()}
+                },
+                hour: {
+                    type: Number,
+                    value: 12
+                },
+                minute: {
+                    type: Number,
+                    value: 12
                 },
                 dateString: String,
                 firebaseRef: Object,
@@ -67,7 +94,7 @@
                 if(this.ridesList != undefined && this.ridesList != null){
                     for(var i=0;i< this.ridesList.length; i++){                    
                         var currentRide = this.ridesList[i];                    
-                        if(currentRide.departure == this.departure && currentRide.arrival == this.arrival && currentRide.date == this.dateString){
+                        if(currentRide.departure == this.departure && currentRide.arrival == this.arrival && currentRide.date == this.dateString && this.hour == currentRide.hour && this.minute ==                                     currentRide.minute){
                             tempArray.push(currentRide);
                         }
                     }      

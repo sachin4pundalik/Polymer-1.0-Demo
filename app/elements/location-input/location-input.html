@@ -1,15 +1,17 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/iron-label/iron-label.html">
 
 <link rel="import" href="../../bower_components/google-apis/google-maps-api.html">
 
 <dom-module id="location-input">
   <style>
+      
     
   </style>
   <template>   
         <google-maps-api id="maps" libraries="places" api-key="AIzaSyCP2cfnvGBJLHlYDsn9MNHjnNZTzCggOow" on-api-load="on_api_load"></google-maps-api>
-        <label>{{inputLabel}}: </label><input id="input" class="input" type="text" value="{{inputValue}}"/>
+        <iron-label><b>{{inputLabel}}: </b></iron-label><input id="input" class="input" type="text" value="{{inputValue}}"/>
   </template>
 </dom-module>
 <script>
