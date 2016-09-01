@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
@@ -35,6 +36,15 @@
             border-style: solid;
             border-color: #a9c6c9;
         }
+         
+        paper-button.indigo {
+                background-color: var(--paper-indigo-500);
+                color: white;
+                --paper-button-raised-keyboard-focus: {
+                  background-color: var(--paper-pink-a200) !important;
+                  color: white !important;
+                };
+        } 
          
      </style>
      <div id="tableDiv"></content></div>      
@@ -74,29 +84,59 @@
              // Loop through the html header arrya and create table header rows.
              var tr = table.insertRow(-1); 
              tr.setAttribute('class','table tr style-scope editable-table');
+             var isDataPresent = false;
              for (var i = 0; i < this.tableHeaderList.length; i++) {
                  var th = document.createElement("th");
                  th.setAttribute('class','table th style-scope editable-table');
                  th.innerHTML = this.tableHeaderList[i];
                  tr.appendChild(th);
+                 isDataPresent = true;
+             }
+             // Add the 'Delete' header
+             if(isDataPresent){
+                 var delBtnTh = document.createElement("th");
+                 delBtnTh.setAttribute('class','table th style-scope editable-table');
+                 delBtnTh.innerHTML = 'Delete';
+                 tr.appendChild(delBtnTh);
              }
              
              // Loop through the data array to populate table data
              for (var i = 0; i < this.data.length; i++) {
                 tr = table.insertRow(-1);
+                tr.setAttribute('on-tap','deleteRow'); 
                 tr.setAttribute('class','table tr style-scope editable-table');
                 for (var j = 0; j < this.tableHeaderList.length; j++) {
                     var tabCell = tr.insertCell(-1);
                     tabCell.innerHTML = this.data[i][this.tableHeaderList[j]];
                     tabCell.setAttribute('class','table td style-scope editable-table');
                 }
+                 
+                // Add Delete button to each row
+                var tabCell = tr.insertCell(-1);
+                var delButton = document.createElement('paper-button');
+                delButton.textContent="Delete";
+                var rowId = 'row'+i;
+                delButton.setAttribute('id','row'+i);
+                delButton.setAttribute('class','custom indigo style-scope editable-table'); 
+                         
+                tabCell.innerHTML = '';
+                tabCell.appendChild(delButton);                                
+                tabCell.setAttribute('class','table td style-scope editable-table');
+                
              }
              
              // Add the table to the div container.
              var divContainer = this.$.tableDiv;
              divContainer.innerHTML = "";
-             divContainer.appendChild(table);                            
-         }
+             divContainer.appendChild(table); 
+             console.log(this.$.rowId);
+         },
+         
+         deleteRow: function(){
+            console.log('Delete Button Pressed ');
+            console.log(e);
+            console.log(selectedElement);
+         }        
      });    
  </Script>
 

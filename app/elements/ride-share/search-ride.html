@@ -64,16 +64,18 @@
             searchRide: function(){
                 this.dateString = this.formatDate(this.date); 
                 var tempArray = [];
-                for(var i=0;i< this.ridesList.length; i++){                    
-                    var currentRide = this.ridesList[i];                    
-                    if(currentRide.departure == this.departure && currentRide.arrival == this.arrival && currentRide.date == this.dateString){
-                        tempArray.push(currentRide);
-                    }
-                }      
-                this.searchResults = tempArray;
+                if(this.ridesList != undefined && this.ridesList != null){
+                    for(var i=0;i< this.ridesList.length; i++){                    
+                        var currentRide = this.ridesList[i];                    
+                        if(currentRide.departure == this.departure && currentRide.arrival == this.arrival && currentRide.date == this.dateString){
+                            tempArray.push(currentRide);
+                        }
+                    }      
+                    this.searchResults = tempArray;
+                }
             },
             
-            updateData: function(snapshot){                
+            updateData: function(snapshot){
                 var tempArray = [];
                 snapshot.forEach(function(childSnapshot) {
                   var key = childSnapshot.key();
